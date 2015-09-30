@@ -81,7 +81,7 @@ And then finally we generate the plots by providing data:
 1. Animate the drawing
 2. Migrate more settings to class properties 
 3. Real-space x-axis spacing for line graphs so that x-axis values can be meaningful on line graphs
-4. Refactor the code (can be made modular, right now it's quite spaghetti)
+4. Refactor the code so it's more modular
 
 
                                                                                           
