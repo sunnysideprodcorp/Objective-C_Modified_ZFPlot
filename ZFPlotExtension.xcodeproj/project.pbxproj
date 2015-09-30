@@ -13,6 +13,8 @@
 		10EC03E61BBC772400A88617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E41BBC772400A88617 /* Main.storyboard */; };
 		10EC03E81BBC772400A88617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E71BBC772400A88617 /* Assets.xcassets */; };
 		10EC03EB1BBC772400A88617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E91BBC772400A88617 /* LaunchScreen.storyboard */; };
+		10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F31BBC775100A88617 /* ZFPlotChart.m */; settings = {ASSET_TAGS = (); }; };
+		10EC03F71BBC778A00A88617 /* prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F61BBC778A00A88617 /* prefs.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		10EC03E71BBC772400A88617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10EC03EA1BBC772400A88617 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10EC03EC1BBC772400A88617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10EC03F21BBC775100A88617 /* ZFPlotChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlotChart.h; sourceTree = "<group>"; };
+		10EC03F31BBC775100A88617 /* ZFPlotChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlotChart.m; sourceTree = "<group>"; };
+		10EC03F51BBC778A00A88617 /* prefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefs.h; sourceTree = "<group>"; };
+		10EC03F61BBC778A00A88617 /* prefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = prefs.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				10EC03DF1BBC772400A88617 /* AppDelegate.m */,
 				10EC03E11BBC772400A88617 /* ViewController.h */,
 				10EC03E21BBC772400A88617 /* ViewController.m */,
+				10EC03F21BBC775100A88617 /* ZFPlotChart.h */,
+				10EC03F31BBC775100A88617 /* ZFPlotChart.m */,
+				10EC03F51BBC778A00A88617 /* prefs.h */,
+				10EC03F61BBC778A00A88617 /* prefs.m */,
 				10EC03E41BBC772400A88617 /* Main.storyboard */,
 				10EC03E71BBC772400A88617 /* Assets.xcassets */,
 				10EC03E91BBC772400A88617 /* LaunchScreen.storyboard */,
@@ -150,6 +160,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				10EC03E31BBC772400A88617 /* ViewController.m in Sources */,
+				10EC03F71BBC778A00A88617 /* prefs.m in Sources */,
+				10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */,
 				10EC03E01BBC772400A88617 /* AppDelegate.m in Sources */,
 				10EC03DD1BBC772400A88617 /* main.m in Sources */,
 			);
