@@ -4,7 +4,14 @@
 
 I found Francesco's ZFPlot class on CocoaControls while looking for a lightweight alternative to CorePlot. He had created a nice line-chart plotting custom UIView. While working with it, I realized that it could very easily be extended to basic bar plots and scatter plots. These features have been added. Additionally, some properties of the plots have been migrated to class properties rather than defined constants so that many different kinds of plots can easily be created in the same application. Future users may want to continue this migration so that plots are highly customizable, and such modification is a simple matter of a few find and replace operations. 
 
-This first screen shot shows the line plot, bar plot, and scatter plot.. Color, presence of grid lines, type of chart, type of x-axis labeling can all be set dynamically. In particular, a chart's x-axis can either be an index corresponding to the original data's ordering, an NSDate formatted to month/day, or (for scatter plots) the value of the xValue field. Other than scatter plots, the data is plotted with uniform intervals between each point on the x-axis, so for example if you plot dates that are not evenly spaced, this will not be reflected in the x-axis placement of your points. 
+This first screen shot shows the line plot, bar plot, and scatter plot.
+
+You can also see the `isMovement` feature illustrated below. When the user touches the plot, the nearest point will be highlighted,\
+ and more precise information given. This feature works for all three kinds of plots                                               
+                                                                                                           
+![ "screenshot2" ](https://github.com/sunnysideprodcorp/Modified_ZFPlot/blob/master/images/screen2.png)
+
+ Color, presence of grid lines, type of chart, type of x-axis labeling can all be set dynamically. In particular, a chart's x-axis can either be an index corresponding to the original data's ordering, an NSDate formatted to month/day, or (for scatter plots) the value of the xValue field. Other than scatter plots, the data is plotted with uniform intervals between each point on the x-axis, so for example if you plot dates that are not evenly spaced, this will not be reflected in the x-axis placement of your points. 
 
 ![ "screenshot1" ](https://github.com/sunnysideprodcorp/Modified_ZFPlot/blob/master/images/screen1.png)
 
@@ -67,13 +74,12 @@ And then finally we generate the plots by providing data:
     }];
     
 ```
-Clearly there is no need to do an animation, but it keeps things neater. You can also see the `isMovement` feature illustrated below. When the user touches the plot, the nearest point will be highlighted, and more precise information given. This feature works for all three kinds of plots
-![ "screenshot2" ](https://github.com/sunnysideprodcorp/Modified_ZFPlot/blob/master/images/screen2.png)
 
-On the to-do list:
+####On the to-do list:
 1. Animate the drawing
 2. Migrate more settings to class properties 
 3. Introduce real-space x-axis spacing for line grahps, so that x-axis values can be meaningful (right now they are uniformly spaced) 
 4. Refactor the code into a more modular format
 
-The aim of this project is to provide basic plotting functionality without the steep learning curve of CorePlot or the inconveniene of expense of buying or writing a package when all you need is a simple plot. 
+
+                                                                                          
