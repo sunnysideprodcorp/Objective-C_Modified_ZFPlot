@@ -72,6 +72,12 @@
 @property (nonatomic, strong) UIColor *baseColorProperty;
 @property (nonatomic, strong) UIColor *lowerGradientColorProperty;
 @property CGFloat scatterRadiusProperty;
-- (void)createChartWith:(NSOrderedSet *)data;
+
+// Animation
+@property float timeBetweenPoints;
+@property BOOL animatePlotDraw;
+
+//Functions
+- (void)createChartWith:(NSOrderedSet *)data; //set up plot with data after initialization
 
 @end

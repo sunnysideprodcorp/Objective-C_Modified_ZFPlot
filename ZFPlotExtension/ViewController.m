@@ -49,6 +49,8 @@
     self.distancePlot.baseColorProperty = [UIColor blueColor];
     self.distancePlot.lowerGradientColorProperty = [UIColor redColor];
     self.distancePlot.gridLinesOn = YES;
+    self.distancePlot.animatePlotDraw = YES;
+    self.distancePlot.timeBetweenPoints = 2;
     [self.view addSubview:self.distancePlot];
     
     frame.origin.y += self.height*.05 + frame.size.height;
@@ -59,6 +61,8 @@
     self.timePlot.baseColorProperty = [UIColor blueColor];
     self.timePlot.stringOffsetHorizontal = 5.0;
     self.timePlot.gridLinesOn = YES;
+    self.timePlot.animatePlotDraw = YES;
+    self.timePlot.timeBetweenPoints = 5;
     [self.view addSubview:self.timePlot];
     
     frame.origin.y += self.height*.05 + frame.size.height;
@@ -71,6 +75,8 @@
     self.ratePlot.baseColorProperty = [UIColor blackColor];
     self.ratePlot.gridLinesOn = YES;
     self.ratePlot.scatterRadiusProperty = 3;
+    self.ratePlot.timeBetweenPoints = 2;
+    self.ratePlot.animatePlotDraw = YES;
     [self.view addSubview:self.ratePlot];
     
     self.distancePlot.alpha = 0;
@@ -107,9 +113,9 @@
     [self.view addSubview:rateLabel];
     
     // draw data
-    [self.distancePlot createChartWith:[self generateDataForNumberPoints:100]];
-    [self.timePlot createChartWith:[self generateDataForNumberPoints:20]];
-    [self.ratePlot createChartWith:[self generateDataForNumberPoints:255]];
+    [self.distancePlot createChartWith:[self generateDataForNumberPoints:10]];
+    [self.timePlot createChartWith:[self generateDataForNumberPoints:10]];
+    [self.ratePlot createChartWith:[self generateDataForNumberPoints:10]];
     [UIView animateWithDuration:0.5 animations:^{
         self.distancePlot.alpha = 1.0;
         self.timePlot.alpha = 1.0;

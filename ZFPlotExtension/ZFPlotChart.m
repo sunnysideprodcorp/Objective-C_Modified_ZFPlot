@@ -34,6 +34,10 @@
 
 // Track when user is touching plot
 @property BOOL isMovement;
+
+// Animation countdown
+@property int countDown;
+@property NSMutableSet *includedIndices;
 @end
 
 
@@ -53,6 +57,9 @@
             self.scatterRadiusProperty = scatterCircleRadius;
             self.stringOffsetHorizontal = stringOffset;
             self.gridLinesOn = YES;
+            self.animatePlotDraw = YES;
+            self.timeBetweenPoints = .3;
+        
             
             [self setAutoresizingMask: UIViewAutoresizingFlexibleWidth];
             [self setAutoresizesSubviews:YES];
@@ -213,22 +220,61 @@
         [self.xBinsCoords sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
 
     }
-    
-    [self setNeedsDisplay];
 
+    if(self.animatePlotDraw) [self startDrawingPaths];
+    else{
+        self.countDown = self.dictDispPoint.count + 1;
+        [self setNeedsDisplay];
+    }
 }
 
 #pragma mark - Drawing
 
+
+- (void)startDrawingPaths
+{
+    self.includedIndices = [[NSMutableSet alloc] init];
+    //draw the first path
+    self.countDown = 0;
+    [self setNeedsDisplay];
+    
+    //schedule redraws once per second
+    [NSTimer scheduledTimerWithTimeInterval:self.timeBetweenPoints target:self selector:@selector(updateView:) userInfo:nil repeats:YES];
+}
+
+- (void)updateView:(NSTimer*)timer
+{
+    //increment the path counter
+    self.countDown++;
+    
+    //tell the view to update
+    [self setNeedsDisplay];
+    
+    //if we've drawn all our paths, stop the timer
+    if(self.countDown >= self.dictDispPoint.count)
+    {
+        [timer invalidate];
+    }
+}
+
+
+
 - (void)drawRect:(CGRect)rect
 {
+
     // Bar chart
     if(self.chartType == 0.0){
+
         [self drawBarGraph:rect];
     }
     // Line chart
     else if(self.chartType == 1.0){
-        [self drawLineChart:rect];
+
+       // while(self.countDown > 0){
+          //  [self performSelector:@selector(drawLineChart:) withObject:rect afterDelay:2.0];
+            [self drawLineChart:rect];
+         //   sleep(2);
+        //}
     }
     // Scatter chart
     else if(self.chartType == 2.0){
@@ -294,7 +340,7 @@
                 
 
 
-                [self drawRoundedRect:context rect: boxChartFrame radius:.05 color:self.baseColorProperty];
+                if(ind < self.countDown) [self drawRoundedRect:context rect: boxChartFrame radius:.05 color:self.baseColorProperty];
                 
                 [self endContext];
                 
@@ -345,7 +391,7 @@
                 float xGapBetweenTwoPoints = self.chartWidth/[self.dictDispPoint count];
                 NSUInteger pointSlot = self.currentLoc.x/xGapBetweenTwoPoints;
                 
-                if( pointSlot < [self.dictDispPoint count])
+                if( pointSlot < [self.dictDispPoint count] && pointSlot < self.countDown)
                 {
 
                     
@@ -465,7 +511,10 @@
                 CGContextRef context = UIGraphicsGetCurrentContext();
                 CGFloat deltaX = self.xUnitWidth * (ind + 1);
                 CGPoint circlePoint = CGPointMake(self.curPoint.x, self.curPoint.y);
-                [self drawCircleAt:circlePoint ofRadius:self.scatterRadiusProperty];
+                CGFloat randNumber = arc4random_uniform(self.dictDispPoint.count);
+            
+                NSLog(@"here is the rand number %f and here is the cutoff %f", randNumber, self.countDown);
+                if(randNumber < self.countDown)[self drawCircleAt:circlePoint ofRadius:self.scatterRadiusProperty];
                 [self endContext];
                 
             }];
@@ -636,7 +685,7 @@
                 [self setContextWidth:1.5f andColor:self.baseColorProperty];
                 
                 // draw the curve
-                [self drawCurveFrom:self.prevPoint to:self.curPoint];
+                if(ind < self.countDown) [self drawCurveFrom:self.prevPoint to:self.curPoint];
                 
                 [self endContext];
                 
@@ -701,7 +750,7 @@
             CGPathAddLineToPoint(path, nil, origin.x,origin.y);
             
             // gradient
-            [self gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path];
+            if(self.countDown >= self.dictDispPoint.count - 1)[self gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path];
             
             CGPathRelease(path);
             
@@ -732,7 +781,7 @@
                 float xGapBetweenTwoPoints = self.chartWidth/[self.dictDispPoint count];
                 int pointSlot = self.currentLoc.x/(signed)xGapBetweenTwoPoints;
                 
-                if(pointSlot >= 0 && pointSlot < [self.dictDispPoint count])
+                if(pointSlot >= 0 && pointSlot < [self.dictDispPoint count] && pointSlot < self.countDown)
                 {
                     NSDictionary *dict = [self.dictDispPoint objectAtIndex:pointSlot];
                     
