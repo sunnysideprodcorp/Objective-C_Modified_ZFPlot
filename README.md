@@ -6,6 +6,8 @@ I found Francesco's ZFPlot class on CocoaControls while looking for a lightweigh
 
 This first screen shot shows the line plot, bar plot, and scatter plot.
 
+![ "screenshot1" ](https://github.com/sunnysideprodcorp/Modified_ZFPlot/blob/master/images/screen1.png)
+
 You can also see the `isMovement` feature illustrated below. When the user touches the plot, the nearest point will be highlighted,\
  and more precise information given. This feature works for all three kinds of plots                                               
                                                                                                            
@@ -13,7 +15,7 @@ You can also see the `isMovement` feature illustrated below. When the user touch
 
  Color, presence of grid lines, type of chart, type of x-axis labeling can all be set dynamically. In particular, a chart's x-axis can either be an index corresponding to the original data's ordering, an NSDate formatted to month/day, or (for scatter plots) the value of the xValue field. Other than scatter plots, the data is plotted with uniform intervals between each point on the x-axis, so for example if you plot dates that are not evenly spaced, this will not be reflected in the x-axis placement of your points. 
 
-![ "screenshot1" ](https://github.com/sunnysideprodcorp/Modified_ZFPlot/blob/master/images/screen1.png)
+
 
 These three plots were created with the following code, which first sets the aesthetic properties:
 
