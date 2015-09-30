@@ -34,14 +34,10 @@
 
 // Track when user is touching plot
 @property BOOL isMovement;
-
-
-
 @end
 
 
 @implementation ZFPlotChart
-
 
 #pragma mark - Initialization/LifeCycle Method
 - (id)initWithFrame:(CGRect)frame
@@ -218,13 +214,11 @@
 
     }
     
-    
     [self setNeedsDisplay];
 
 }
 
 #pragma mark - Drawing
-
 
 - (void)drawRect:(CGRect)rect
 {
@@ -259,7 +253,6 @@
             float intervalHlines = (self.chartHeight)/MIN(intervalLinesHorizontal, self.dictDispPoint.count - 1);    //5.0f;
             float intervalValues = range/MIN(intervalLinesHorizontal, self.dictDispPoint.count - 1);     //5.0f;
             
-            
             // horizontal lines
             for(int i=intervalLinesHorizontal;i>0;i--)
             {
@@ -279,8 +272,6 @@
                 [self endContext];
                 
             }
-            
-            
             
             /*** Draw points ***/
             [self.dictDispPoint enumerateObjectsUsingBlock:^(id obj, NSUInteger ind, BOOL *stop){
@@ -344,15 +335,10 @@
             // horizontal closure
             [self drawLineFrom:CGPointMake(self.leftMargin, topMarginInterior) to:CGPointMake(self.chartWidth+self.leftMargin, topMarginInterior)];
             
-            
             [self endContext];
             
             
             CGContextRef context = UIGraphicsGetCurrentContext();
-            
-            
-            
-            
             // popup when moving
             if(self.isMovement)
             {
@@ -403,8 +389,7 @@
                     // value string
                     [self drawString:yVal at:CGPointMake(yValRect.origin.x+(yValRect.size.width-yValSize.width)/2,yValRect.origin.y+1.0f) withFont:boldFont andColor:whiteColor];
                     
-                    
-                }
+                    }
             }
         }
         else
@@ -421,17 +406,6 @@
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 - (void)drawScatter: (CGRect) rect {
@@ -601,18 +575,15 @@
         // draw a loding spinner while loading the data
         [self drawLoading];
     }
-}
-@catch (NSException *exception) {
+    }
+    @catch (NSException *exception) {
     NSLog(@"%@",[exception debugDescription]);
+    }
+    @finally {
+        
+    }
+
 }
-@finally {
-    
-}
-
-
-}
-
-
 
 - (void)drawLineChart:(CGRect)rect{
     @try
@@ -709,7 +680,6 @@
                     [self endContext];
                     
                 }
-                
                 
             }];
             
@@ -817,11 +787,6 @@
     }
     
 }
-
-
-
-
-
 
 #pragma mark - Graphic Utilities
 

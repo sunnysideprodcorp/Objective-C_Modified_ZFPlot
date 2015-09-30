@@ -106,7 +106,7 @@
     [self.view addSubview:rateLabel];
     
     // draw data
-    [self.distancePlot createChartWith:[self generateDataForNumberPoints:3]];
+    [self.distancePlot createChartWith:[self generateDataForNumberPoints:35]];
     [self.timePlot createChartWith:[self generateDataForNumberPoints:400]];
     [self.ratePlot createChartWith:[self generateDataForNumberPoints:200]];
     [UIView animateWithDuration:0.5 animations:^{
