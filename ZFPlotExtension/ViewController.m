@@ -47,6 +47,7 @@
     self.distancePlot.useDates = 0.0;
     self.distancePlot.stringOffsetHorizontal = 15.0;
     self.distancePlot.baseColorProperty = [UIColor blueColor];
+    self.distancePlot.lowerGradientColorProperty = [UIColor redColor];
     self.distancePlot.gridLinesOn = YES;
     [self.view addSubview:self.distancePlot];
     
@@ -67,9 +68,9 @@
     self.ratePlot.chartType = 2.0;
     self.ratePlot.useDates = 2.0;
     self.ratePlot.stringOffsetHorizontal = 15.0;
-    self.ratePlot.baseColorProperty = [UIColor blueColor];
+    self.ratePlot.baseColorProperty = [UIColor blackColor];
     self.ratePlot.gridLinesOn = YES;
-    self.ratePlot.scatterRadiusProperty = 2;
+    self.ratePlot.scatterRadiusProperty = 3;
     [self.view addSubview:self.ratePlot];
     
     self.distancePlot.alpha = 0;
@@ -106,9 +107,9 @@
     [self.view addSubview:rateLabel];
     
     // draw data
-    [self.distancePlot createChartWith:[self generateDataForNumberPoints:35]];
-    [self.timePlot createChartWith:[self generateDataForNumberPoints:400]];
-    [self.ratePlot createChartWith:[self generateDataForNumberPoints:200]];
+    [self.distancePlot createChartWith:[self generateDataForNumberPoints:100]];
+    [self.timePlot createChartWith:[self generateDataForNumberPoints:20]];
+    [self.ratePlot createChartWith:[self generateDataForNumberPoints:255]];
     [UIView animateWithDuration:0.5 animations:^{
         self.distancePlot.alpha = 1.0;
         self.timePlot.alpha = 1.0;
