@@ -80,8 +80,8 @@ And then finally we generate the plots by providing data:
 ####On the to-do list:
 1. Animate the drawing
 2. Migrate more settings to class properties 
-3. Introduce real-space x-axis spacing for line grahps, so that x-axis values can be meaningful (right now they are uniformly spaced) 
-4. Refactor the code into a more modular format
+3. Real-space x-axis spacing for line graphs so that x-axis values can be meaningful on line graphs
+4. Refactor the code (can be made modular, right now it's quite spaghetti)
 
 
                                                                                           
