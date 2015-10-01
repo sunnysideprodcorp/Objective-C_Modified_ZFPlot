@@ -37,11 +37,26 @@
 
 // Animation countdown
 @property int countDown;
-@property NSMutableSet *includedIndices;
+@property NSMutableArray *alreadyIncluded;
 @end
 
 
 @implementation ZFPlotChart
+
+- (void)resetInclusionArray {
+    self.alreadyIncluded = [[NSMutableArray alloc] init];
+    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
+        [self.alreadyIncluded addObject:[NSNumber numberWithBool:NO]];
+    }
+}
+
+
+- (void) allTrueInclusionArray {
+    self.alreadyIncluded = [[NSMutableArray alloc] init];
+    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
+        [self.alreadyIncluded addObject:[NSNumber numberWithBool:YES]];
+    }
+}
 
 #pragma mark - Initialization/LifeCycle Method
 - (id)initWithFrame:(CGRect)frame
@@ -221,8 +236,13 @@
 
     }
 
-    if(self.animatePlotDraw) [self startDrawingPaths];
+    if(self.animatePlotDraw)
+    {
+        [self startDrawingPaths];
+        [self resetInclusionArray];
+    }
     else{
+        [self allTrueInclusionArray];
         self.countDown = self.dictDispPoint.count + 1;
         [self setNeedsDisplay];
     }
@@ -233,7 +253,7 @@
 
 - (void)startDrawingPaths
 {
-    self.includedIndices = [[NSMutableSet alloc] init];
+
     //draw the first path
     self.countDown = 0;
     [self setNeedsDisplay];
@@ -456,7 +476,6 @@
 
 - (void)drawScatter: (CGRect) rect {
     
-    
     @try
     {
         if([self.dictDispPoint count] > 0)
@@ -513,8 +532,13 @@
                 CGPoint circlePoint = CGPointMake(self.curPoint.x, self.curPoint.y);
                 CGFloat randNumber = arc4random_uniform(self.dictDispPoint.count);
             
-                NSLog(@"here is the rand number %f and here is the cutoff %f", randNumber, self.countDown);
-                if(randNumber < self.countDown)[self drawCircleAt:circlePoint ofRadius:self.scatterRadiusProperty];
+                if(![self.alreadyIncluded[ind] boolValue]){
+                    if(randNumber < self.countDown){
+                        [self.alreadyIncluded setObject:[NSNumber numberWithBool:YES] atIndexedSubscript:ind];
+                    }
+                }
+
+                if([self.alreadyIncluded[ind] boolValue])[self drawCircleAt:circlePoint ofRadius:self.scatterRadiusProperty];
                 [self endContext];
                 
             }];
@@ -535,7 +559,6 @@
             }
             
             [self endContext];
-        //}
         
         //  X and Y axys
         [self setContextWidth:1.0f andColor:linesColor];
@@ -569,7 +592,7 @@
                                     }
                                     ];
 
-            if(pointSlot >= 0 && pointSlot < [self.dictDispPoint count])
+            if(pointSlot >= 0 && pointSlot < [self.dictDispPoint count] && [self.alreadyIncluded[pointSlot] boolValue])
             {
                 NSDictionary *dict = [self.dictDispPoint objectAtIndex:pointSlot];
                 
@@ -614,7 +637,6 @@
 
                 
                 [self drawString:stringToUse at:CGPointMake(yValRect.origin.x+(yValRect.size.width-yValSize.width)/2,yValRect.origin.y+1.0f) withFont:boldFont andColor:whiteColor];
-                // [self drawString:yVal at:CGPointMake(yValRect.origin.x+(yValRect.size.width-yValSize.width)/2,yValRect.origin.y+1.0f) withFont:boldFont andColor:whiteColor];
                 
             }
         }
@@ -750,7 +772,7 @@
             CGPathAddLineToPoint(path, nil, origin.x,origin.y);
             
             // gradient
-            if(self.countDown >= self.dictDispPoint.count - 1)[self gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path];
+            if(self.countDown >= self.dictDispPoint.count)[self gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path];
             
             CGPathRelease(path);
             
