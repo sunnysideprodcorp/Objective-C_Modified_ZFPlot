@@ -15,6 +15,7 @@ You can also see the `isMovement` feature illustrated below. When the user touch
 
  Color, presence of grid lines, type of chart, type of x-axis labeling can all be set dynamically. In particular, a chart's x-axis can either be an index corresponding to the original data's ordering, an NSDate formatted to month/day, or (for scatter plots) the value of the xValue field. Other than scatter plots, the data is plotted with uniform intervals between each point on the x-axis, so for example if you plot dates that are not evenly spaced, this will not be reflected in the x-axis placement of your points. 
 
+Also the drawing of the graphs is by default animated, point by point for bar and line charts, and in random clusters for scatter charts. Whether to animate, and the pace of the animation can both be set by a public class property of ZFPlot. 
 
 
 These three plots were created with the following code, which first sets the aesthetic properties:
