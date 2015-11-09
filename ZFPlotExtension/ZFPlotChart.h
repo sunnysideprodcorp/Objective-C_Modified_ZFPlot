@@ -7,7 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "ZFDrawingUtility.h"
+#import "ZFData.h"
 #define COLOR_WITH_RGB(r,g,b)   [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f] // Macro for colors
 
 // Dimension constants
@@ -57,6 +58,8 @@
 
 @interface ZFPlotChart : UIView
 
+@property ZFDrawingUtility *draw;
+
 // Overall plot properties
 @property CGFloat chartType; // 0 = bar graph, 1 = line graph, 2 = scatter plot
 @property CGFloat useDates; // are x-axis labels are 0 = data array indices, 1 = NSDates, 2 = actual numerical values
@@ -66,7 +69,8 @@
 // Data to display and units to apply to the plotted y-axis values
 @property (nonatomic, retain) NSString *units; // y value units
 @property (nonatomic, retain) NSString *xUnits; // x value units, only used if useDates == 2
-@property (nonatomic, retain) NSMutableOrderedSet *dictDispPoint; // an ordered set of key-value pairs with fields corresponding to constants fzValue and fzXValue
+//@property (nonatomic, retain) NSMutableOrderedSet *dictDispPoint; // an ordered set of key-value pairs with fields corresponding to constants fzValue and fzXValue
+@property ZFData* dictDispPoint; // an ordered set of key-value pairs with fields corresponding to constants fzValue and fzXValue
 
 // Aesthetics
 @property (nonatomic, strong) UIColor *baseColorProperty;
@@ -123,7 +127,7 @@
 - (void)updateView:(NSTimer*)timer;
 -(void)drawLoading ;
 -(void)stopLoading ;
--(void)gradientizefromPoint:(CGPoint) startPoint toPoint:(CGPoint) endPoint forPath:(CGMutablePathRef) path;
+//-(void)gradientizefromPoint:(CGPoint) startPoint toPoint:(CGPoint) endPoint forPath:(CGMutablePathRef) path;
 -(void)drawMessage:(NSString*)string;
 -(void) setContextWidth:(float)width andColor:(UIColor*)color;
 -(void)endContext;

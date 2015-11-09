@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		105EAAAC1BF1164E0088CAF9 /* ZFDrawingUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 105EAAAB1BF1164E0088CAF9 /* ZFDrawingUtility.m */; };
+		105EAAAF1BF11B2A0088CAF9 /* ZFString.m in Sources */ = {isa = PBXBuildFile; fileRef = 105EAAAE1BF11B2A0088CAF9 /* ZFString.m */; };
 		1090EC181BF0E7C300298BE7 /* ZFScatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC171BF0E7C300298BE7 /* ZFScatter.m */; };
 		1090EC1B1BF0ED6B00298BE7 /* ZFBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC1A1BF0ED6B00298BE7 /* ZFBar.m */; };
 		1090EC1E1BF0ED7700298BE7 /* ZFLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC1D1BF0ED7700298BE7 /* ZFLine.m */; };
@@ -18,9 +20,14 @@
 		10EC03EB1BBC772400A88617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E91BBC772400A88617 /* LaunchScreen.storyboard */; };
 		10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F31BBC775100A88617 /* ZFPlotChart.m */; };
 		10EC03F71BBC778A00A88617 /* prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F61BBC778A00A88617 /* prefs.m */; };
+		10F7C8DA1BF126BC00C4E4F1 /* ZFData.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F7C8D91BF126BC00C4E4F1 /* ZFData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		105EAAAA1BF1164E0088CAF9 /* ZFDrawingUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDrawingUtility.h; sourceTree = "<group>"; };
+		105EAAAB1BF1164E0088CAF9 /* ZFDrawingUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDrawingUtility.m; sourceTree = "<group>"; };
+		105EAAAD1BF11B2A0088CAF9 /* ZFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFString.h; sourceTree = "<group>"; };
+		105EAAAE1BF11B2A0088CAF9 /* ZFString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFString.m; sourceTree = "<group>"; };
 		1090EC161BF0E7C300298BE7 /* ZFScatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFScatter.h; sourceTree = "<group>"; };
 		1090EC171BF0E7C300298BE7 /* ZFScatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFScatter.m; sourceTree = "<group>"; };
 		1090EC191BF0ED6B00298BE7 /* ZFBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBar.h; sourceTree = "<group>"; };
@@ -41,6 +48,8 @@
 		10EC03F31BBC775100A88617 /* ZFPlotChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlotChart.m; sourceTree = "<group>"; };
 		10EC03F51BBC778A00A88617 /* prefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefs.h; sourceTree = "<group>"; };
 		10EC03F61BBC778A00A88617 /* prefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = prefs.m; sourceTree = "<group>"; };
+		10F7C8D81BF126BC00C4E4F1 /* ZFData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFData.h; sourceTree = "<group>"; };
+		10F7C8D91BF126BC00C4E4F1 /* ZFData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +94,12 @@
 				1090EC1A1BF0ED6B00298BE7 /* ZFBar.m */,
 				1090EC1C1BF0ED7700298BE7 /* ZFLine.h */,
 				1090EC1D1BF0ED7700298BE7 /* ZFLine.m */,
+				105EAAAA1BF1164E0088CAF9 /* ZFDrawingUtility.h */,
+				105EAAAB1BF1164E0088CAF9 /* ZFDrawingUtility.m */,
+				105EAAAD1BF11B2A0088CAF9 /* ZFString.h */,
+				105EAAAE1BF11B2A0088CAF9 /* ZFString.m */,
+				10F7C8D81BF126BC00C4E4F1 /* ZFData.h */,
+				10F7C8D91BF126BC00C4E4F1 /* ZFData.m */,
 				10EC03F51BBC778A00A88617 /* prefs.h */,
 				10EC03F61BBC778A00A88617 /* prefs.m */,
 				10EC03E41BBC772400A88617 /* Main.storyboard */,
@@ -174,9 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F7C8DA1BF126BC00C4E4F1 /* ZFData.m in Sources */,
 				10EC03E31BBC772400A88617 /* ViewController.m in Sources */,
 				10EC03F71BBC778A00A88617 /* prefs.m in Sources */,
 				1090EC1B1BF0ED6B00298BE7 /* ZFBar.m in Sources */,
+				105EAAAC1BF1164E0088CAF9 /* ZFDrawingUtility.m in Sources */,
+				105EAAAF1BF11B2A0088CAF9 /* ZFString.m in Sources */,
 				1090EC1E1BF0ED7700298BE7 /* ZFLine.m in Sources */,
 				1090EC181BF0E7C300298BE7 /* ZFScatter.m in Sources */,
 				10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */,

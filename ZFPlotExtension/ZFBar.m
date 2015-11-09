@@ -31,9 +31,9 @@
         
         
         
-        if(ind < self.countDown) [self drawRoundedRect:context rect: boxChartFrame radius:.05 color:self.baseColorProperty];
+        if(ind < self.countDown) [self.draw drawRoundedRect:context rect: boxChartFrame radius:.05 color:self.baseColorProperty];
         
-        [self endContext];
+        [self.draw endContext];
 
             long linesRatio;
             if((signed)[self.dictDispPoint count] < intervalLinesVertical + 1  ) linesRatio = [self.dictDispPoint count]/MAX((signed)([self.dictDispPoint count]-1), 1);
@@ -47,8 +47,8 @@
                 
                 NSString *stringToUse = [self stringToUse: ind];
                 
-                [self drawString: stringToUse at:datePoint withFont:systemFont andColor:linesColor];
-                [self endContext];
+                [self.draw drawString: stringToUse at:datePoint withFont:systemFont andColor:linesColor];
+                [self.draw endContext];
             }
     }];
     }

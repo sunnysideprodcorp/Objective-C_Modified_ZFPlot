@@ -118,7 +118,7 @@
     // draw data
     [self.distancePlot createChartWith:[self generateDataForNumberPoints:10]];
     [self.timePlot createChartWith:[self generateDataForNumberPoints:10]];
-    [self.ratePlot createChartWith:[self generateDataForNumberPoints:2000]];
+    [self.ratePlot createChartWith:[self generateDataForNumberPoints:20]];
     [UIView animateWithDuration:0.5 animations:^{
         self.distancePlot.alpha = 1.0;
         self.timePlot.alpha = 1.0;

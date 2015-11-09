@@ -7,7 +7,7 @@
 //
 
 #import "ZFLine.h"
-
+#import "ZFString.h"
 @implementation ZFLine
 
 - (void) drawPoints {
@@ -26,12 +26,12 @@
         }
         
         // line style
-        [self setContextWidth:1.5f andColor:self.baseColorProperty];
+        [self.draw setContextWidth:1.5f andColor:self.baseColorProperty];
         
         // draw the curve
-        if(ind < self.countDown) [self drawCurveFrom:self.prevPoint to:self.curPoint];
+        if(ind < self.countDown) [self.draw drawCurveFrom:self.prevPoint to:self.curPoint];
         
-        [self endContext];
+        [self.draw endContext];
         
         
         long linesRatio;
@@ -44,33 +44,33 @@
         
         
         if(ind%linesRatio == 0) {
-            [self setContextWidth:0.5f andColor:linesColor];
+            [self.draw setContextWidth:0.5f andColor:linesColor];
             // Vertical Lines
             if(ind!=0) {
                 CGPoint lower = CGPointMake(self.curPoint.x, topMarginInterior+self.chartHeight);
                 CGPoint higher = CGPointMake(self.curPoint.x, topMarginInterior);
-                if(self.gridLinesOn) [self drawLineFrom:lower to: higher];
+                if(self.gridLinesOn) [self.draw drawLineFrom:lower to: higher];
             }
             
-            [self endContext];
+            [self.draw endContext];
             
             // draw x-axis values
             CGPoint datePoint = CGPointMake(self.curPoint.x-15, topMarginInterior + self.chartHeight + 2);
             if(self.useDates == 0.0){
-                [self drawString:[NSString stringWithFormat:@"%d", (int)ind] at:datePoint withFont:systemFont andColor:linesColor];
+                [self.draw drawString:[NSString stringWithFormat:@"%d", (int)ind] at:datePoint withFont:systemFont andColor:linesColor];
             }
             else if(self.useDates == 1.0){
-                NSString* date = [self dateFromString: [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue]];
-                [self drawString:date at:datePoint withFont:systemFont andColor:linesColor];
+                NSString* date = [NSString dateFromString: [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue]];
+                [self.draw drawString:date at:datePoint withFont:systemFont andColor:linesColor];
             }
             else{
                 NSString *xUse;
                 if(self.xUnits) xUse = [NSString stringWithFormat:@"%@ %@", [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue], self.xUnits];
                 else xUse = [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue];
-                [self drawString: xUse at:datePoint withFont:systemFont andColor:linesColor];
+                [self.draw drawString: xUse at:datePoint withFont:systemFont andColor:linesColor];
             }
             
-            [self endContext];
+            [self.draw endContext];
             
         }
         
@@ -98,7 +98,7 @@
     CGPathAddLineToPoint(path, nil, origin.x,origin.y);
     
     // gradient
-    if(self.countDown >= self.dictDispPoint.count)[self gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path];
+    if(self.countDown >= self.dictDispPoint.count)[self.draw gradientizefromPoint:CGPointMake(0, self.yMax) toPoint:CGPointMake(0, topMarginInterior+self.chartWidth) forPath:path forBaseColor:self.baseColorProperty forLowerGradientColorProperty:self.lowerGradientColorProperty ];
     
     CGPathRelease(path);
 
