@@ -28,6 +28,22 @@
     return [NSMutableOrderedSet orderedSetWithArray:orderedArray];
 }
 
+
+
+
+- (NSMutableOrderedSet *) withDatesGenerateDataForNumberPoints: (int)numPoints {
+    NSMutableArray *orderedArray = [[NSMutableArray alloc] init];
+    for(int i = 0; i < numPoints; i++){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        dict = [@{
+                  @"xValue" : [[NSDate date] dateByAddingTimeInterval:-i*24*60*60], @"value": [NSNumber numberWithInt: arc4random_uniform(100)]
+                  } mutableCopy];
+        [orderedArray addObject:dict];
+        [NSThread sleepForTimeInterval:1.0f];
+    }
+    return [NSMutableOrderedSet orderedSetWithArray:orderedArray];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Your recent runs";
@@ -44,8 +60,7 @@
    // self.distancePlot = [[ZFPlotChart alloc] initWithFrame:frame];
     self.distancePlot = [[ZFLine alloc] initWithFrame:frame];
     self.distancePlot.units = @"miles";
-    self.distancePlot.chartType = 1.0;
-    self.distancePlot.useDates = 0.0;
+    self.distancePlot.xAxisLabelType = 1;
     self.distancePlot.stringOffsetHorizontal = 15.0;
     self.distancePlot.baseColorProperty = [UIColor blueColor];
     self.distancePlot.lowerGradientColorProperty = [UIColor redColor];
@@ -58,8 +73,7 @@
     //self.timePlot = [[ZFPlotChart alloc] initWithFrame:frame];
     self.timePlot = [[ZFBar alloc] initWithFrame:frame];
     self.timePlot.units = @"seconds";
-    self.timePlot.chartType = 0.0;
-    self.timePlot.useDates = 0.0;
+    self.timePlot.xAxisLabelType = 0.0;
     self.timePlot.baseColorProperty = [UIColor blueColor];
     self.timePlot.stringOffsetHorizontal = 5.0;
     self.timePlot.gridLinesOn = YES;
@@ -72,8 +86,7 @@
     self.ratePlot = [[ZFScatter alloc] initWithFrame:frame];
     self.ratePlot.units = @"hr";
     self.ratePlot.xUnits = @"units";
-    self.ratePlot.chartType = 2.0;
-    self.ratePlot.useDates = 2.0;
+    self.ratePlot.xAxisLabelType = 2.0;
     self.ratePlot.stringOffsetHorizontal = 15.0;
     self.ratePlot.baseColorProperty = [UIColor blueColor];
     self.ratePlot.gridLinesOn = YES;
@@ -116,7 +129,8 @@
     [self.view addSubview:rateLabel];
     
     // draw data
-    [self.distancePlot createChartWith:[self generateDataForNumberPoints:10]];
+   // [self.distancePlot createChartWith:[self generateDataForNumberPoints:10]];
+    [self.distancePlot createChartWith:[self withDatesGenerateDataForNumberPoints:10]];
     [self.timePlot createChartWith:[self generateDataForNumberPoints:10]];
     [self.ratePlot createChartWith:[self generateDataForNumberPoints:20]];
     [UIView animateWithDuration:0.5 animations:^{

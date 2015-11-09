@@ -8,7 +8,11 @@
 
 #import "ZFData.h"
 #import "ZFPlotChart.h"
+#import "ZFString.h"
+
 @implementation ZFData
+
+# pragma mark Initialization
 
 - (id) init {
     self = [super init];
@@ -23,10 +27,11 @@
     return self;
 }
 
+# pragma mark Wrapper functions for ordered set property dictDispPoint
+
 -(int)count{
     return (int)self.dictDispPoint.count;
 }
-
 
 -(void) removeAllObjects{
     [self.dictDispPoint removeAllObjects];
@@ -36,7 +41,15 @@
     [self.dictDispPoint addObject:dictPoint];
 }
 
+- (void) enumerateObjectsUsingBlock:(void(^)(id obj, NSUInteger ind, BOOL *stop))enumBlock{
+    [self.dictDispPoint enumerateObjectsUsingBlock:enumBlock];
+}
 
+- (NSDictionary *)objectAtIndex: (int) ind {
+    return [self.dictDispPoint objectAtIndex:ind];
+}
+
+#pragma mark Data converstion for proper display on chart
 
 - (float) convertXToGraphNumber: (float)xVal{
     CGFloat xDiff = self.xMax - xVal;
@@ -44,17 +57,11 @@
     return (self.chart.chartWidth)*(1-xDiff/xRange) + self.chart.leftMargin;
 }
 
-
 - (float) convertYToGraphNumber: (float)yVal{
     float diff = self.max-yVal;
     float range = self.max - self.min;
     return ((self.chart.chartHeight*diff)/range + topMarginInterior);
 }
-
-- (NSDictionary *)objectAtIndex: (int) ind {
-    return [self.dictDispPoint objectAtIndex:ind];
-}
-
 
 - (void) convertXMakeBins {
     self.xBinsCoords = [[NSMutableArray alloc] init];
@@ -74,7 +81,6 @@
         [self.xBinsLabels addObject:[NSString stringWithFormat:@"%.01f", (self.xMin + i*(self.xMax - self.xMin)/intervalLinesVertical)]];
         i++;
     }
-
     
     if(self.xIndices.count > 2){
         self.xClickIndices = [[NSMutableArray alloc] init];
@@ -93,11 +99,20 @@
     [self.xBinsCoords sortUsingDescriptors:[NSArray arrayWithObject:lowestToHighest]];
 }
 
-//k:(void (^)(void))callbackBlock {
-- (void) enumerateObjectsUsingBlock:(void(^)(id obj, NSUInteger ind, BOOL *stop))enumBlock{
-    [self.dictDispPoint enumerateObjectsUsingBlock:enumBlock];
-}
+-(NSString *) stringToUse:(NSInteger)ind withDates: (int)xAxisLabelType withXUnits: (NSString *)xUnits{
+    if(xAxisLabelType == 0){
+        return [NSString stringWithFormat:@"%ld", ind + 1];
+    }
+    else if(xAxisLabelType == 1){
+        return [NSString stringMonthDayMonthDay: [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue]];
+        
+    }
+    else{
+        if(xUnits) return [NSString stringWithFormat:@"%@ %@", [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue], xUnits];
+        else return [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue];
+    }
     
+}
     
     
 

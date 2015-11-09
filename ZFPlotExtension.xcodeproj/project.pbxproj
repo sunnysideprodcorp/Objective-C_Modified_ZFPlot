@@ -50,6 +50,7 @@
 		10EC03F61BBC778A00A88617 /* prefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = prefs.m; sourceTree = "<group>"; };
 		10F7C8D81BF126BC00C4E4F1 /* ZFData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFData.h; sourceTree = "<group>"; };
 		10F7C8D91BF126BC00C4E4F1 /* ZFData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFData.m; sourceTree = "<group>"; };
+		10F7C8DB1BF1405B00C4E4F1 /* ZFConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +101,7 @@
 				105EAAAE1BF11B2A0088CAF9 /* ZFString.m */,
 				10F7C8D81BF126BC00C4E4F1 /* ZFData.h */,
 				10F7C8D91BF126BC00C4E4F1 /* ZFData.m */,
+				10F7C8DB1BF1405B00C4E4F1 /* ZFConstants.h */,
 				10EC03F51BBC778A00A88617 /* prefs.h */,
 				10EC03F61BBC778A00A88617 /* prefs.m */,
 				10EC03E41BBC772400A88617 /* Main.storyboard */,

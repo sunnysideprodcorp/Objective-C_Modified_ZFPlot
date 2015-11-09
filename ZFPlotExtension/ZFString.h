@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString()
-+(NSString*) dateFromString:(NSDate*) date;
-+(NSString*)formatNumberWithUnits:(float)number withFractionDigits: (int)digits withUnits: (NSString *)units;
-+(NSString*)formatPairNumberX:(float)numberX andNumberY:(float)numberY withFractionDigits: (int)digits
++(NSString*) stringMonthDayMonthDay:(NSDate*) date;
++(NSString*)yNumberWithUnits:(float)number withFractionDigits: (int)digits withUnits: (NSString *)units;
++(NSString*)pairNumber:(float)numberX andNumberY:(float)numberY withFractionDigits: (int)digits
                     withUnits: (NSString *)units withXUnits: (NSString *)xUnits;
 @end

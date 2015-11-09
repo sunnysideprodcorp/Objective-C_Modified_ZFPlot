@@ -11,8 +11,8 @@
 @implementation ZFDrawingUtility
 
 
-// draw a circle given center and radius
 -(void) drawCircleAt:(CGPoint)point ofRadius:(int)radius {
+    // draws a circle at a given point
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGRect myOval = {point.x-radius/2, point.y-radius/2, radius, radius};
     CGContextAddEllipseInRect(context, myOval);
@@ -20,6 +20,7 @@
 }
 
 -(void)gradientizefromPoint:(CGPoint) startPoint toPoint:(CGPoint) endPoint forPath:(CGMutablePathRef) path forBaseColor: (UIColor *) baseColorProperty forLowerGradientColorProperty: (UIColor *) lowerGradientColorProperty{
+    //draws a gradient within a path
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -39,8 +40,8 @@
                      alpha: &alpha];
     
     CGFloat colors [] = {
-        redUpper, greenUpper, blueUpper, 0.9,  //darkblue
-        redLower, greenLower, blueLower, 0.2,  // white clear
+        redUpper, greenUpper, blueUpper, 0.9,
+        redLower, greenLower, blueLower, 0.2,
     };
     
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB(); // gray colors want gray color space
@@ -60,50 +61,47 @@
     CGContextRestoreGState(context);
     
 }
--(void)drawMessage:(NSString*)string {
-    /*
-    float stringWidth = [self sizeOfString:string withFont:boldFont].width;
-    [self.draw drawString:string at:CGPointMake(self.center.x-stringWidth/2, self.center.y) withFont:boldFont andColor:linesColor];
-*/
-     }
-// set the context with a specified widht and color
+
+
 -(void) setContextWidth:(float)width andColor:(UIColor*)color {
-    
+// set the context with a specified widht and color
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, width);
     CGContextSetFillColorWithColor(context, color.CGColor);
     CGContextSetStrokeColorWithColor(context, color.CGColor);
 }
-// end context
+
 -(void)endContext {
+    // end context
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextStrokePath(context);
 }
-// line between two points
+
+
 -(void) drawLineFrom:(CGPoint) start to: (CGPoint)end {
+    // line between two points
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddLineToPoint(context,end.x,end.y);
     
 }
-// curve between two points
+
 -(void) drawCurveFrom:(CGPoint)start to:(CGPoint)end {
+    // curve between two points
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddQuadCurveToPoint(context, start.x, start.y, end.x, end.y);
     CGContextSetLineCap(context, kCGLineCapRound);
 }
-// draws a string given a point, font and color
+
 -(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color{
+    // draws a string given a point, font and color
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: color};
     [string drawAtPoint:point withAttributes:attributes];
 }
 
-
-
+- (void) drawRoundedRect:(CGContextRef)c rect:(CGRect)rect radius:(int)corner_radius color:(UIColor *)color{
 // rounded corners rectangle
-- (void) drawRoundedRect:(CGContextRef)c rect:(CGRect)rect radius:(int)corner_radius color:(UIColor *)color
-{
     int x_left = rect.origin.x;
     int x_left_center = rect.origin.x + corner_radius;
     int x_right_center = rect.origin.x + rect.size.width - corner_radius;

@@ -12,18 +12,14 @@
 
 
 // format a string as a date (italian convention)
-+(NSString*) dateFromString:(NSDate*) date {
++(NSString*) stringMonthDayMonthDay:(NSDate*) date {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
     int day = (int)[components day];
     int month = (int)[components month];
     return [NSString stringWithFormat:@"%d/%d", month, day];
 }
 
-
-
-
-+(NSString*)formatNumberWithUnits:(float)number withFractionDigits: (int)digits withUnits: (NSString *)units{
-    
++(NSString*)yNumberWithUnits:(float)number withFractionDigits: (int)digits withUnits: (NSString *)units{
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setMaximumFractionDigits:digits];
     [currencyFormatter setMinimumFractionDigits:digits];
@@ -35,10 +31,8 @@
     return numberAsString;
 }
 
-
-+(NSString*)formatPairNumberX:(float)numberX andNumberY:(float)numberY withFractionDigits: (int)digits
++(NSString*)pairNumber:(float)numberX andNumberY:(float)numberY withFractionDigits: (int)digits
                     withUnits: (NSString *)units withXUnits: (NSString *)xUnits{
-    
     NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setMaximumFractionDigits:digits];
     [currencyFormatter setMinimumFractionDigits:digits];

@@ -14,9 +14,9 @@
 
 @interface ViewController : UIViewController
 
-@property (strong, nonatomic) ZFPlotChart *distancePlot;
-@property (strong, nonatomic) ZFPlotChart *timePlot;
-@property (strong, nonatomic) ZFPlotChart *ratePlot;
+@property (strong, nonatomic) ZFLine *distancePlot;
+@property (strong, nonatomic) ZFBar *timePlot;
+@property (strong, nonatomic) ZFScatter *ratePlot;
 
 @property (strong, nonatomic) NSString *distanceUnits;
 @property (strong, nonatomic) NSString *timeUnits;

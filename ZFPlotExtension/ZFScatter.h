@@ -10,4 +10,7 @@
 #import "ZFPlotChart.h"
 
 @interface ZFScatter : ZFPlotChart
+
+@property CGFloat scatterRadiusProperty;
+
 @end

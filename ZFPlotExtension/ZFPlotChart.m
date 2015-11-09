@@ -24,8 +24,7 @@
         
         // set defaults for appearance parameters
         self.baseColorProperty = baseColor;
-        self.lowerGradientColorProperty = lowerGradientColor;
-        self.scatterRadiusProperty = scatterCircleRadius;
+
         self.stringOffsetHorizontal = stringOffset;
         self.gridLinesOn = YES;
         self.animatePlotDraw = YES;
@@ -59,7 +58,7 @@
     self.dictDispPoint.min = MAX(minY, self.dictDispPoint.min);
     
     // Calculate left space given by the lenght of the string on the axis
-    self.leftMargin = [self sizeOfString:[NSString formatNumberWithUnits:self.dictDispPoint.max/valueDivider withFractionDigits:1 withUnits:self.units] withFont:systemFont].width + leftSpace;
+    self.leftMargin = [self sizeOfString:[NSString yNumberWithUnits:self.dictDispPoint.max/valueDivider withFractionDigits:1 withUnits:self.units] withFont:systemFont].width + leftSpace;
     self.chartWidth -= self.leftMargin;
 }
 
@@ -132,7 +131,7 @@
 
     // Parameters to calculate y-axis positions
     float y = topMarginInterior;
-    self.yMax = self.yMin;
+    self.dictDispPoint.yMax = self.dictDispPoint.yMin;
     
     float xRange;
     xRange = self.dictDispPoint.xMax - self.dictDispPoint.xMin;
@@ -149,7 +148,7 @@
         y = [self.dictDispPoint convertYToGraphNumber:[[dictionary valueForKey:fzValue] floatValue]];
         
         // Get max y value
-        if(y > self.yMax) self.yMax = y;
+        if(y > self.dictDispPoint.yMax) self.dictDispPoint.yMax = y;
         
         CGPoint point = CGPointMake(x,y);
         
@@ -234,34 +233,6 @@
 
 #pragma mark - Graphic Routines from graphic utilities
 
--(NSString *) stringToUse:(NSInteger)ind {
-    if(self.useDates == 0.0){
-        return [NSString stringWithFormat:@"%ld", ind + 1];
-    }
-    else if(self.useDates == 1.0){
-        return [NSString dateFromString: [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue]];
-       
-    }
-    else{
-        if(self.xUnits) return [NSString stringWithFormat:@"%@ %@", [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue], self.xUnits];
-        else return [[self.dictDispPoint objectAtIndex:ind] valueForKey:fzXValue];
-    }
-    
-}
-/*
-#pragma mark - Graph conversion utilities
-- (float) convertXToGraphNumber: (float)xVal{
-    CGFloat xDiff = self.dictDispPoint.xMax - xVal;
-    CGFloat xRange = self.dictDispPoint.xMax - self.dictDispPoint.xMin;
-    return (self.chartWidth)*(1-xDiff/xRange) + self.leftMargin;
-}
-
-
-- (float) convertYToGraphNumber: (float)yVal{
-    float diff = self.dictDispPoint.max-yVal;
-    float range = self.dictDispPoint.max - self.dictDispPoint.min;
-    return (self.chartHeight*diff)/range + topMarginInterior;
-}*/
 
 
 #pragma mark - String utilities
@@ -356,7 +327,7 @@
         if(self.gridLinesOn)[self.draw drawLineFrom:start to:end];
         
         // draw yVals on the axis
-        NSString *yVal = [NSString formatNumberWithUnits:(self.dictDispPoint.min+i*intervalValues)/valueDivider withFractionDigits:1 withUnits:self.units];
+        NSString *yVal = [NSString yNumberWithUnits:(self.dictDispPoint.min+i*intervalValues)/valueDivider withFractionDigits:1 withUnits:self.units];
         CGPoint yValPoint = CGPointMake(self.leftMargin - [self sizeOfString:yVal withFont:systemFont].width - 5,(self.chartHeight+topMarginInterior-i*intervalHlines-6));
         [self.draw drawString:yVal at:yValPoint withFont:systemFont andColor:linesColor];
         [self.draw endContext];
@@ -432,7 +403,7 @@
 
 - (NSString *) getStringForLabel : (NSDictionary *)dict {
     float value = [[dict objectForKey:fzValue] floatValue]/valueDivider;
-    return [NSString formatNumberWithUnits:value withFractionDigits:2 withUnits:self.units];
+    return [NSString yNumberWithUnits:value withFractionDigits:2 withUnits:self.units];
 }
 
 # pragma mark Functions Specialized by Scatter Plot

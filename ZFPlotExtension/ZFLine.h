@@ -10,4 +10,8 @@
 #import "ZFPlotChart.h"
 
 @interface ZFLine : ZFPlotChart
+
+@property (nonatomic, strong) UIColor *lowerGradientColorProperty;  // second color to use for drawing a gradient
+@property BOOL useGradient;  // whether to draw a gradient under line/curve
+
 @end
