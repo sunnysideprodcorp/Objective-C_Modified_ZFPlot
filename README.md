@@ -61,8 +61,8 @@ And then finally we generate the plots by providing data:
 
 ```
     // draw data
-    [self.distancePlot createChartWith:[self generateDataForNumberPoints:100]];
-    [self.timePlot createChartWith:[self generateDataForNumberPoints:20]];
+    [self.distancePlot createChartWith:[self withDatesGenerateDataForNumberPoints:100]]; //to use dates on your x-axis label call withDates...
+    [self.timePlot createChartWith:[self generateDataForNumberPoints:20]]; // otherwise use generateData..
     [self.ratePlot createChartWith:[self generateDataForNumberPoints:255]];
     [UIView animateWithDuration:0.5 animations:^{
         self.distancePlot.alpha = 1.0;
