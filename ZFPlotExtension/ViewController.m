@@ -20,9 +20,9 @@
     NSMutableArray *orderedArray = [[NSMutableArray alloc] init];
     for(int i = 0; i < numPoints; i++){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        dict = @{
+        dict = [@{
             @"xValue" : [NSNumber numberWithInt: arc4random_uniform(100)], @"value": [NSNumber numberWithInt: arc4random_uniform(100)]
-        };
+        } mutableCopy];
         [orderedArray addObject:dict];
     }
     return [NSMutableOrderedSet orderedSetWithArray:orderedArray];
@@ -41,7 +41,8 @@
     CGRect frame = CGRectMake(0, self.height*.15, screenWidth, self.height*.25);
     
     // initialization
-    self.distancePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+   // self.distancePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.distancePlot = [[ZFLine alloc] initWithFrame:frame];
     self.distancePlot.units = @"miles";
     self.distancePlot.chartType = 1.0;
     self.distancePlot.useDates = 0.0;
@@ -54,7 +55,8 @@
     [self.view addSubview:self.distancePlot];
     
     frame.origin.y += self.height*.05 + frame.size.height;
-    self.timePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    //self.timePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.timePlot = [[ZFBar alloc] initWithFrame:frame];
     self.timePlot.units = @"seconds";
     self.timePlot.chartType = 0.0;
     self.timePlot.useDates = 0.0;
@@ -66,7 +68,8 @@
     [self.view addSubview:self.timePlot];
     
     frame.origin.y += self.height*.05 + frame.size.height;
-    self.ratePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+   // self.ratePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.ratePlot = [[ZFScatter alloc] initWithFrame:frame];
     self.ratePlot.units = @"hr";
     self.ratePlot.xUnits = @"units";
     self.ratePlot.chartType = 2.0;

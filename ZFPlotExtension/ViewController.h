@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZFPlotChart.h"
+#import "ZFScatter.h"
+#import "ZFBar.h"
+#import "ZFLine.h"
 
 @interface ViewController : UIViewController
 

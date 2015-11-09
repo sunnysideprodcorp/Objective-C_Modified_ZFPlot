@@ -7,17 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1090EC181BF0E7C300298BE7 /* ZFScatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC171BF0E7C300298BE7 /* ZFScatter.m */; };
+		1090EC1B1BF0ED6B00298BE7 /* ZFBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC1A1BF0ED6B00298BE7 /* ZFBar.m */; };
+		1090EC1E1BF0ED7700298BE7 /* ZFLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1090EC1D1BF0ED7700298BE7 /* ZFLine.m */; };
 		10EC03DD1BBC772400A88617 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03DC1BBC772400A88617 /* main.m */; };
 		10EC03E01BBC772400A88617 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03DF1BBC772400A88617 /* AppDelegate.m */; };
 		10EC03E31BBC772400A88617 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03E21BBC772400A88617 /* ViewController.m */; };
 		10EC03E61BBC772400A88617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E41BBC772400A88617 /* Main.storyboard */; };
 		10EC03E81BBC772400A88617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E71BBC772400A88617 /* Assets.xcassets */; };
 		10EC03EB1BBC772400A88617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10EC03E91BBC772400A88617 /* LaunchScreen.storyboard */; };
-		10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F31BBC775100A88617 /* ZFPlotChart.m */; settings = {ASSET_TAGS = (); }; };
-		10EC03F71BBC778A00A88617 /* prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F61BBC778A00A88617 /* prefs.m */; settings = {ASSET_TAGS = (); }; };
+		10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F31BBC775100A88617 /* ZFPlotChart.m */; };
+		10EC03F71BBC778A00A88617 /* prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EC03F61BBC778A00A88617 /* prefs.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1090EC161BF0E7C300298BE7 /* ZFScatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFScatter.h; sourceTree = "<group>"; };
+		1090EC171BF0E7C300298BE7 /* ZFScatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFScatter.m; sourceTree = "<group>"; };
+		1090EC191BF0ED6B00298BE7 /* ZFBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBar.h; sourceTree = "<group>"; };
+		1090EC1A1BF0ED6B00298BE7 /* ZFBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBar.m; sourceTree = "<group>"; };
+		1090EC1C1BF0ED7700298BE7 /* ZFLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFLine.h; sourceTree = "<group>"; };
+		1090EC1D1BF0ED7700298BE7 /* ZFLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFLine.m; sourceTree = "<group>"; };
 		10EC03D81BBC772400A88617 /* ZFPlotExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFPlotExtension.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10EC03DC1BBC772400A88617 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		10EC03DE1BBC772400A88617 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +79,12 @@
 				10EC03E21BBC772400A88617 /* ViewController.m */,
 				10EC03F21BBC775100A88617 /* ZFPlotChart.h */,
 				10EC03F31BBC775100A88617 /* ZFPlotChart.m */,
+				1090EC161BF0E7C300298BE7 /* ZFScatter.h */,
+				1090EC171BF0E7C300298BE7 /* ZFScatter.m */,
+				1090EC191BF0ED6B00298BE7 /* ZFBar.h */,
+				1090EC1A1BF0ED6B00298BE7 /* ZFBar.m */,
+				1090EC1C1BF0ED7700298BE7 /* ZFLine.h */,
+				1090EC1D1BF0ED7700298BE7 /* ZFLine.m */,
 				10EC03F51BBC778A00A88617 /* prefs.h */,
 				10EC03F61BBC778A00A88617 /* prefs.m */,
 				10EC03E41BBC772400A88617 /* Main.storyboard */,
@@ -161,6 +176,9 @@
 			files = (
 				10EC03E31BBC772400A88617 /* ViewController.m in Sources */,
 				10EC03F71BBC778A00A88617 /* prefs.m in Sources */,
+				1090EC1B1BF0ED6B00298BE7 /* ZFBar.m in Sources */,
+				1090EC1E1BF0ED7700298BE7 /* ZFLine.m in Sources */,
+				1090EC181BF0E7C300298BE7 /* ZFScatter.m in Sources */,
 				10EC03F41BBC775100A88617 /* ZFPlotChart.m in Sources */,
 				10EC03E01BBC772400A88617 /* AppDelegate.m in Sources */,
 				10EC03DD1BBC772400A88617 /* main.m in Sources */,
@@ -310,6 +328,7 @@
 				10EC03F11BBC772400A88617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -77,7 +77,81 @@
 @property float timeBetweenPoints;
 @property BOOL animatePlotDraw;
 
+
+
+@property CGFloat xUnitWidth;
+@property NSMutableArray *xBinsCoords;
+@property NSMutableArray *xBinsLabels;
+
+// Tracking range of y-axis data
+@property (nonatomic, readwrite) float min, max;
+@property (nonatomic, readwrite) float yMax,yMin;
+
+// Layout properties for plotting the view
+@property (nonatomic, readwrite) float chartWidth, chartHeight;
+@property (nonatomic, readwrite) float leftMargin;
+
+// Tracking all points in data as they are iterated over
+@property (nonatomic, readwrite) CGPoint prevPoint, curPoint, currentLoc;
+
+// Use for scatter plot option to label x-axis and do appropriate x-axis spacing
+@property (nonatomic, retain) NSMutableArray *xIndices;
+@property (nonatomic, retain) NSMutableArray *xClickIndices;
+@property (nonatomic, readwrite) float xMin, xMax;
+
+// Show when data is loading or missing
+@property (strong) UIActivityIndicatorView *loadingSpinner;
+
+// Track when user is touching plot
+@property BOOL isMovement;
+
+// Animation countdown
+@property int countDown;
+@property NSMutableArray *alreadyIncluded;
+
+@property BOOL convertX;
+
 //Functions
 - (void)createChartWith:(NSOrderedSet *)data; //set up plot with data after initialization
 
+
+// putting all functions here for now
+- (void)resetInclusionArray;
+- (void) allTrueInclusionArray;
+- (id)initWithFrame:(CGRect)frame;
+- (void)startDrawingPaths;
+- (void)updateView:(NSTimer*)timer;
+-(void)drawLoading ;
+-(void)stopLoading ;
+-(void)gradientizefromPoint:(CGPoint) startPoint toPoint:(CGPoint) endPoint forPath:(CGMutablePathRef) path;
+-(void)drawMessage:(NSString*)string;
+-(void) setContextWidth:(float)width andColor:(UIColor*)color;
+-(void)endContext;
+-(void) drawLineFrom:(CGPoint) start to: (CGPoint)end;
+-(void) drawCurveFrom:(CGPoint)start to:(CGPoint)end;
+-(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color;
+-(void) drawCircleAt:(CGPoint)point ofRadius:(int)radius;
+- (void) drawRoundedRect:(CGContextRef)c rect:(CGRect)rect radius:(int)corner_radius color:(UIColor *)color;
+-(CGSize) sizeOfString:(NSString *)string withFont:(UIFont *)font;
+
+-(NSString *) stringToUse:(NSInteger)ind;
+- (float) convertXToGraphNumber: (float)xVal;
+
+- (float) convertYToGraphNumber: (float)yVal;
+-(NSString*) dateFromString:(NSDate*) date;
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+-(NSString*)formatNumberWithUnits:(float)number withFractionDigits: (int)digits;
+-(NSString*)formatPairNumberX:(float)numberX andNumberY:(float)numberY withFractionDigits: (int)digits ;
+
+- (void) drawHorizontalLines;
+- (void) drawPoints ;
+- (void) setupAxesAndClosures;
+- (void) movementSetup : (int)pointSlot;
+- (void) movementSetup : (int)pointSlot withPoint:(CGPoint)point;
+- (CGPoint)getPointForPointSlot:(int)pointSlot;
+- (void)drawSpecial;
+- (int)getPointSlot;
+- (BOOL) goodPointSlot : (int) pointSlot;
 @end
