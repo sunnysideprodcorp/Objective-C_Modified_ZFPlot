@@ -25,10 +25,9 @@ These three plots were created with the following code, which first sets the aes
     
     // initialization
     // Line Plot
-    self.distancePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.distancePlot = [[ZFLine alloc] initWithFrame:frame];
     self.distancePlot.units = @"miles";
-    self.distancePlot.chartType = 1.0;
-    self.distancePlot.useDates = 0.0;
+    self.distancePlot.xAxisLabelType = 1;
     self.distancePlot.stringOffsetHorizontal = 15.0;
     self.distancePlot.baseColorProperty = [UIColor blueColor];
     self.distancePlot.lowerGradientColorProperty = [UIColor redColor];
@@ -37,24 +36,22 @@ These three plots were created with the following code, which first sets the aes
     
     // Bar Plot
     frame.origin.y += self.height*.05 + frame.size.height;
-    self.timePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.timePlot = [[ZFBar alloc] initWithFrame:frame];
     self.timePlot.units = @"seconds";
-    self.timePlot.chartType = 0.0;
-    self.timePlot.useDates = 0.0;
-    self.timePlot.baseColorProperty = [UIColor blueColor];
+    self.distancePlot.baseColorProperty = [UIColor blueColor];
+    self.timePlot.xAxisLabelType = 0;
     self.timePlot.stringOffsetHorizontal = 5.0;
     self.timePlot.gridLinesOn = YES;
     [self.view addSubview:self.timePlot];
     
     // Scatter Plot
     frame.origin.y += self.height*.05 + frame.size.height;
-    self.ratePlot = [[ZFPlotChart alloc] initWithFrame:frame];
+    self.ratePlot = [[ZFScatter alloc] initWithFrame:frame];
+    self.distancePlot.baseColorProperty = [UIColor blueColor];
     self.ratePlot.units = @"hr";
     self.ratePlot.xUnits = @"units";
-    self.ratePlot.chartType = 2.0;
-    self.ratePlot.useDates = 2.0;
+    self.ratePlot.xAxisLabelType = 2;
     self.ratePlot.stringOffsetHorizontal = 15.0;
-    self.ratePlot.baseColorProperty = [UIColor blackColor];
     self.ratePlot.gridLinesOn = YES;
     self.ratePlot.scatterRadiusProperty = 3;
     [self.view addSubview:self.ratePlot];
