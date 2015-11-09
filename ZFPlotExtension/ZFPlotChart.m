@@ -10,40 +10,6 @@
 
 @implementation ZFPlotChart
 
-- (void)drawRect:(CGRect)rect{
-    @try
-    {
-        if([self.dictDispPoint count] > 0)
-        {
-            [self stopLoading];           // remove loading animation
-            [self drawHorizontalLines];   // draw horizontal grid lines where desired
-            
-            [self drawPoints];            // draw actual data points in particula way for particular graph type (ALWAYS OVERRIDE BY SUBCLASS)
-                                          // note that drawPoints is also responsible for drawing vertical grid lines and/or x-axis labels as appropriate
-                                          // this is to avoid looping through data elements twice
-            
-            [self drawSpecial];           // draw whatever other features are unique to a particular kind of graph
-                                          // currently only used by line graph to fill in gradient below line graph
-            
-            [self setupAxesAndClosures];  // draw axes and lines to complete square around graph
-        
-            // if user has touched the chart, show an informational point reflecting nearest data point
-            if(self.isMovement)
-            {
-                int pointSlot = [self getPointSlot];  // this depends on graph type
-                if([self goodPointSlot:pointSlot]) {  // this also depends on graph type
-                    [self movementSetup : pointSlot withPoint:[self getPointForPointSlot:pointSlot]]; // this is a universal
-                }
-            }
-        }
-        else
-        {
-            // draw a loding spinner while loading the data
-            [self drawLoading]; // this is a universal
-        }
-    }
-    @catch (NSException *exception) {}
-}
 
 #pragma mark - Initialization/LifeCycle Method
 
@@ -106,11 +72,43 @@
 }
 
 
-- (NSMutableOrderedSet *) orderIndicesSetLimits: (NSMutableOrderedSet *) orderSet{
-    return orderSet;
+#pragma mark - Chart Creation Method
+
+- (void)drawRect:(CGRect)rect{
+    @try
+    {
+        if([self.dictDispPoint count] > 0)
+        {
+            [self stopLoading];           // remove loading animation
+            [self drawHorizontalLines];   // draw horizontal grid lines where desired
+            
+            [self drawPoints];            // draw actual data points in particula way for particular graph type (ALWAYS OVERRIDE BY SUBCLASS)
+            // note that drawPoints is also responsible for drawing vertical grid lines and/or x-axis labels as appropriate
+            // this is to avoid looping through data elements twice
+            
+            [self drawSpecial];           // draw whatever other features are unique to a particular kind of graph
+            // currently only used by line graph to fill in gradient below line graph
+            
+            [self setupAxesAndClosures];  // draw axes and lines to complete square around graph
+            
+            // if user has touched the chart, show an informational point reflecting nearest data point
+            if(self.isMovement)
+            {
+                int pointSlot = [self getPointSlot];  // this depends on graph type
+                if([self goodPointSlot:pointSlot]) {  // this also depends on graph type
+                    [self movementSetup : pointSlot withPoint:[self getPointForPointSlot:pointSlot]]; // this is a universal
+                }
+            }
+        }
+        else
+        {
+            // draw a loding spinner while loading the data
+            [self drawLoading]; // this is a universal
+        }
+    }
+    @catch (NSException *exception) {}
 }
 
-#pragma mark - Chart Creation Method
 - (void)createChartWith:(NSOrderedSet *)data
 {
     
@@ -468,6 +466,19 @@
 
 #pragma mark - Handle Touch Events
 
+- (int)getPointSlot{
+    // determine which data point to use based on user touch location
+    // some subclasses override this
+    float xGapBetweenTwoPoints = self.chartWidth/[self.dictDispPoint count];
+    return self.currentLoc.x/(signed)xGapBetweenTwoPoints;
+}
+
+- (CGPoint)getPointForPointSlot:(int)pointSlot{
+    // get appropriate data point given point slot determine by user touch
+    // some subclasses override this
+    NSDictionary *dict = [self.dictDispPoint objectAtIndex:pointSlot];
+    return CGPointMake([[dict valueForKey:fzPoint] CGPointValue].x,[[dict valueForKey:fzPoint] CGPointValue].y);
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -503,19 +514,20 @@
     [self setNeedsDisplay];
 }
 
-#pragma mark  (effectively) abstract methods that should be overridden
+#pragma mark  (Effectively) Abstract Methods that Can Be Overridden
 
-- (void) drawPoints {}
+- (void) drawPoints {
+    // this method should draw data in preferred representation as well as all x-axis information (labels, vertical lines)
+    // x-axis information is coupled with drawing data to avoid double repetition through data
+}
 
-- (void)drawSpecial{}
+- (void)drawSpecial{
+    // anything that needs to be added after data is drawn
+    // line chart draws its gradient here; bar and scatter charts do not currently make use of drawSpecial
+}
 
 
-#pragma mark  extras
-
-
-
-
-#pragma mark  shared without overriding
+#pragma mark  Drawing Setup Functions Not Overridden
 
 - (void) drawHorizontalLines {
     float range = self.max-self.min;
@@ -539,12 +551,8 @@
         CGPoint yValPoint = CGPointMake(self.leftMargin - [self sizeOfString:yVal withFont:systemFont].width - 5,(self.chartHeight+topMarginInterior-i*intervalHlines-6));
         [self drawString:yVal at:yValPoint withFont:systemFont andColor:linesColor];
         [self endContext];
-        
     }
 }
-
-
-
 
 - (void) setupAxesAndClosures{
     //  X and Y axis
@@ -567,96 +575,76 @@
 
 }
 
-
-
-
 - (void) movementSetup : (int)pointSlot withPoint:(CGPoint)point{
 
     CGContextRef context = UIGraphicsGetCurrentContext();
-
-    
-
-        NSDictionary *dict = [self.dictDispPoint objectAtIndex:pointSlot];
-
-        // Line at current Point
-        [self setContextWidth:1.0f andColor:self.baseColorProperty];
-        [self drawLineFrom:CGPointMake(point.x, topMarginInterior-10) to:CGPointMake(point.x, self.chartHeight+topMarginInterior)];
-        [self endContext];
-        
-        // Circle at point
-        [self setContextWidth:1.0f andColor:self.baseColorProperty];
-        [self drawCircleAt:point ofRadius:8];
-        [self endContext];
-        
-        
-        // Draw the value corresponding to user touch
-        float value = [[dict objectForKey:fzValue] floatValue]/valueDivider;
-        NSString *yVal = [self formatNumberWithUnits:value withFractionDigits:2];
-        
-        CGSize yValSize = [self sizeOfString:yVal withFont:boldFont];
-        
-        CGRect yValRect = {point.x-yValSize.width/2, 2, yValSize.width + 10, yValSize.height +3};
-        
-        // if goes out on right
-        if(point.x+-yValSize.width/2+yValSize.width+12 > self.chartWidth+self.leftMargin)
-            yValRect.origin.x = self.chartWidth+self.leftMargin-yValSize.width-2;
-        // if goes out on left
-        if(yValRect.origin.x < self.leftMargin)
-            yValRect.origin.x = self.leftMargin-(self.leftMargin/2);
-        
-        // rectangle for the label
-        [self drawRoundedRect:context rect:yValRect radius:5 color:self.baseColorProperty];
-        // value string
-        [self drawString:yVal at:CGPointMake(yValRect.origin.x+(yValRect.size.width-yValSize.width)/2,yValRect.origin.y+1.0f) withFont:boldFont andColor:whiteColor];
-    
-
-}
-
-# pragma overridden sometimes
-
-- (CGPoint)getPointForPointSlot:(int)pointSlot{
     NSDictionary *dict = [self.dictDispPoint objectAtIndex:pointSlot];
-    return CGPointMake([[dict valueForKey:fzPoint] CGPointValue].x,[[dict valueForKey:fzPoint] CGPointValue].y);
+
+    // Line at current Point
+    [self setContextWidth:1.0f andColor:self.baseColorProperty];
+    [self drawLineFrom:CGPointMake(point.x, topMarginInterior-10) to:CGPointMake(point.x, self.chartHeight+topMarginInterior)];
+    [self endContext];
+        
+    // Circle at point
+    [self setContextWidth:1.0f andColor:self.baseColorProperty];
+    [self drawCircleAt:point ofRadius:8];
+    [self endContext];
+        
+        
+    // Draw the value corresponding to user touch
+    float value = [[dict objectForKey:fzValue] floatValue]/valueDivider;
+    NSString *yVal = [self formatNumberWithUnits:value withFractionDigits:2];
+    
+    CGSize yValSize = [self sizeOfString:yVal withFont:boldFont];
+        
+    CGRect yValRect = {point.x-yValSize.width/2, 2, yValSize.width + 10, yValSize.height +3};
+        
+    // if goes out on right
+    if(point.x+-yValSize.width/2+yValSize.width+12 > self.chartWidth+self.leftMargin)
+        yValRect.origin.x = self.chartWidth+self.leftMargin-yValSize.width-2;
+    // if goes out on left
+    if(yValRect.origin.x < self.leftMargin)
+        yValRect.origin.x = self.leftMargin-(self.leftMargin/2);
+        
+    // rectangle for the label
+    [self drawRoundedRect:context rect:yValRect radius:5 color:self.baseColorProperty];
+    // value string
+    [self drawString:yVal at:CGPointMake(yValRect.origin.x+(yValRect.size.width-yValSize.width)/2,yValRect.origin.y+1.0f) withFont:boldFont andColor:whiteColor];
 }
 
-
-- (int)getPointSlot{
-    float xGapBetweenTwoPoints = self.chartWidth/[self.dictDispPoint count];
-    return self.currentLoc.x/(signed)xGapBetweenTwoPoints;
-}
+# pragma mark Functions Varying by Chart Type
 
 - (float) gapBetweenPoints: (NSMutableOrderedSet *)orderSet{
+    // determine what distance between points, overridden by bar graph and ignored by  scatter graph
     return self.chartWidth/MAX(([orderSet count] - 1), 1);
 }
 
 - (float) returnX : (float) toAdd  {
+    // set beginning x point with chart (to control whatever buffer you want between points and y-axis)
     return self.leftMargin;
 }
 
-// this works for bar chart and line chart; scatter chart implements its own
+# pragma mark Functions Specialized by Scatter Plot
+
+- (NSMutableOrderedSet *) orderIndicesSetLimits: (NSMutableOrderedSet *) orderSet{
+    // overridden by scatter plot
+    return orderSet;
+}
+
 - (BOOL) goodPointSlot : (int) pointSlot {
+    // this works for bar chart and line chart; scatter chart implements its own
     return (pointSlot < [self.dictDispPoint count] && pointSlot < self.countDown);
 }
 
-# pragma mark to display non-ordered data animated drawing
-
 - (void)resetInclusionArray {
-    self.alreadyIncluded = [[NSMutableArray alloc] init];
-    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
-        [self.alreadyIncluded addObject:[NSNumber numberWithBool:NO]];
-    }
+    // overridden by scatter chart to manage animation by keeping track of which randomly selected points have already been drawn
 }
-
 
 - (void) allTrueInclusionArray {
-    self.alreadyIncluded = [[NSMutableArray alloc] init];
-    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
-        [self.alreadyIncluded addObject:[NSNumber numberWithBool:YES]];
-    }
+    // overridden by scatter chart to manage animation by keeping track of which randomly selected points have already been drawn
 }
 
 
 
-# pragma mark to scale x-axis data where desired (non-ordinal display)
 
 @end

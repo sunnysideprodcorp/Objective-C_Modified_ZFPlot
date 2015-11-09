@@ -10,7 +10,4 @@
 #import "ZFPlotChart.h"
 
 @interface ZFScatter : ZFPlotChart
-
--(void)drawScatter: (CGRect) rect;
-- (NSMutableOrderedSet *) orderIndicesSetLimits: (NSMutableOrderedSet *) orderSet;
 @end

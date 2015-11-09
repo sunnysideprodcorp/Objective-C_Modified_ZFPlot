@@ -24,10 +24,7 @@
             self.prevPoint = [[[self.dictDispPoint objectAtIndex:ind] valueForKey:fzPoint] CGPointValue];
             self.curPoint = self.prevPoint;
         }
-        
-        NSLog(@"for a char of width: %f we have unit width %f with a count of %d", self.chartWidth, self.xUnitWidth, self.dictDispPoint.count);
 
-        
         // Draw the rectangle for this data point
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGRect boxChartFrame = CGRectMake(self.curPoint.x - (.5 - percentDistBetweenBars)*self.xUnitWidth + .5*self.xUnitWidth, self.curPoint.y, (1-2*percentDistBetweenBars)*self.xUnitWidth, self.chartHeight+topMarginInterior - self.curPoint.y );

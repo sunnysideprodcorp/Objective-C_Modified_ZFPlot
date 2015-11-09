@@ -117,4 +117,22 @@
     return (pointSlot < [self.dictDispPoint count] && [self.alreadyIncluded[pointSlot] boolValue]);
 }
 
+
+# pragma mark - inclusion array for animation
+
+- (void)resetInclusionArray {
+    self.alreadyIncluded = [[NSMutableArray alloc] init];
+    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
+        [self.alreadyIncluded addObject:[NSNumber numberWithBool:NO]];
+    }
+}
+
+
+- (void) allTrueInclusionArray {
+    self.alreadyIncluded = [[NSMutableArray alloc] init];
+    for(int i = 0; i < (signed)self.dictDispPoint.count; i++){
+        [self.alreadyIncluded addObject:[NSNumber numberWithBool:YES]];
+    }
+}
+
 @end

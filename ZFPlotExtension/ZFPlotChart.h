@@ -148,7 +148,6 @@
 - (void) drawHorizontalLines;
 - (void) drawPoints ;
 - (void) setupAxesAndClosures;
-- (void) movementSetup : (int)pointSlot;
 - (void) movementSetup : (int)pointSlot withPoint:(CGPoint)point;
 - (CGPoint)getPointForPointSlot:(int)pointSlot;
 - (void)drawSpecial;

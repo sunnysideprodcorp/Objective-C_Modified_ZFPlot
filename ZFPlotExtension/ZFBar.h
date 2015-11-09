@@ -10,6 +10,4 @@
 #import "ZFPlotChart.h"
 
 @interface ZFBar : ZFPlotChart
-- (void)drawBarGraph:(CGRect) rect;
-- (void) drawRect:(CGRect)rect;
 @end

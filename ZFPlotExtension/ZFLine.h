@@ -10,5 +10,4 @@
 #import "ZFPlotChart.h"
 
 @interface ZFLine : ZFPlotChart
-- (void) drawRect:(CGRect)rect;
 @end
