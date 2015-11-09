@@ -28,9 +28,6 @@
     return [NSMutableOrderedSet orderedSetWithArray:orderedArray];
 }
 
-
-
-
 - (NSMutableOrderedSet *) withDatesGenerateDataForNumberPoints: (int)numPoints {
     NSMutableArray *orderedArray = [[NSMutableArray alloc] init];
     for(int i = 0; i < numPoints; i++){
@@ -141,9 +138,6 @@
         timeLabel.alpha = 1.0;
         rateLabel.alpha = 1.0;
     }];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
